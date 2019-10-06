@@ -29,6 +29,19 @@ def colorWipe(strip, color, wait_ms=50):
         strip.show()
         time.sleep(wait_ms/1000.0)
 
+def clockColorWipe(strip, color, wait_ms=50):
+    """Wipe color across display a pixel at a time."""
+    hourCount = 0
+    currentHour = time.strftime("%H")
+    for i in range(strip.numPixels()):
+        if hourCount < currentHour:
+            for i2 in range(strip.numPixels()/48):
+            strip.setPixelColor(i+i2, color)
+        strip.show()
+        time.sleep(wait_ms/1000.0)
+        i = i + (strip.numPixels()/48)
+        hourCount++
+
 def theaterChase(strip, color, wait_ms=50, iterations=10):
     """Movie theater light style chaser animation."""
     for j in range(iterations):
@@ -99,19 +112,22 @@ if __name__ == '__main__':
     try:
         while test:
             print ('Color wipe animations.')
-            colorWipe(strip, Color(255, 0, 0))  # Red wipe
-            colorWipe(strip, Color(0, 255, 0))  # Blue wipe
-            colorWipe(strip, Color(0, 0, 255))  # Green wipe
-            print ('Theater chase animations.')
-            theaterChase(strip, Color(127, 127, 127))  # White theater chase
-            theaterChase(strip, Color(127,   0,   0))  # Red theater chase
-            theaterChase(strip, Color(  0,   0, 127))  # Blue theater chase
-            print ('Rainbow animations.')
-            rainbow(strip)
-            rainbowCycle(strip)
-            theaterChaseRainbow(strip)
-	    test=0	
-	    colorWipe(strip, Color(0,0,0), 10)
+            clockColorWipe (strip, Color(255, 0, 0))  # Red wipe
+
+            
+##            colorWipe(strip, Color(255, 0, 0))  # Red wipe
+##            colorWipe(strip, Color(0, 255, 0))  # Blue wipe
+##            colorWipe(strip, Color(0, 0, 255))  # Green wipe
+##            print ('Theater chase animations.')
+##            theaterChase(strip, Color(127, 127, 127))  # White theater chase
+##            theaterChase(strip, Color(127,   0,   0))  # Red theater chase
+##            theaterChase(strip, Color(  0,   0, 127))  # Blue theater chase
+##            print ('Rainbow animations.')
+##            rainbow(strip)
+##            rainbowCycle(strip)
+##            theaterChaseRainbow(strip)
+##	    test=0	
+##	    colorWipe(strip, Color(0,0,0), 10)
 
     except KeyboardInterrupt:
         if args.clear:
