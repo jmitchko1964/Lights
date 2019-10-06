@@ -36,9 +36,9 @@ def clockColorWipe(strip, color, wait_ms=50):
     for i in range(strip.numPixels()):
         if hourCount < currentHour:
             for i2 in range(strip.numPixels()/48):
-            strip.setPixelColor(i+i2, color)
-        strip.show()
-        time.sleep(wait_ms/1000.0)
+                strip.setPixelColor(i+i2, color)
+                strip.show()
+                time.sleep(wait_ms/1000.0)
         i = i + (strip.numPixels()/48)
         hourCount++
 
